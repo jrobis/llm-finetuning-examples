@@ -75,28 +75,7 @@ def create_dataframe(cfg):
     # Drop the now redundant columns
     grouped = grouped.drop(columns=['prompt', 'response'])
 
-    first_str = """Generate a numerical score from 0-13 for the prompt and response below using the Rubric pasted below. The prompt and repsponse below are part of an English written test measuring the proficiency of the Candidate.
-Rubric = [{Score: 1, Definition: "Candidate has no ability to write in the target language."},
-{Score: 2, Definition: "Writing uses only isolated words. No knowledge of grammatical structures. Excessive spelling, punctuation, and/or vocabulary mistakes are present."},
-{Score: 3, Definition: "Definition: Writing uses only isolated words or phrases. Grammar knowledge is very limited. Excessive spelling, punctuation, and/ or vocabulary mistakes are present."},
-{Score: 4, Definition: "Writing uses simple sentences, words, and/ or phrases. Candidate displays very basic knowledge of grammar structures, but makes frequent mistakes."},
-{Score: 5, Definition: "Definition: Writing uses simple language structures with no elaboration. Candidate displays some knowledge of grammar structures, but mistakes are present. Candidate is unable to effectively express opinions and/or explain procedures. Frequent spelling, punctuation, and/ or vocabulary mistakes are present."},
-{Score: 6, Definition: "Definition: Writing uses basic structures to convey meaning, but no advanced or formal structures are used correctly. Candidate demonstrates a basic understanding of grammar structures, but many mistakes are present. Candidate is unable to effectively express opinions and/or explain procedures. Spelling, punctuation, and/ or vocabulary mistakes are present."},
-{Score: 7, Definition: "Writing uses basic structures to convey meaning, but almost no advanced or formal structures are used correctly. Candidate demonstrates a basic understanding of grammar structures, but mistakes are present. Candidate might be unable to effectively express opinions and/ or explain procedures in a coherent manner. Spelling, punctuation, and vocabulary is good in areas of frequent usage, but mistakes are present in advanced areas.
-"},
-{Score: 8, Definition: "Writing uses basic structures to convey meaning, but few advanced or formal structures are used correctly. Candidate understands basic grammar structures, but mistakes are present in advanced areas. Candidate might have limited ability to express opinions and explain procedures in a coherent manner. Spelling, punctuation, and vocabulary is very good in areas of frequent usage, but mistakes are present in advanced areas that may confuse the reader"},
-{Score: 9, Definition: "Definition: Writing uses basic and advanced structures to convey the meaning. Candidate understands basic and advanced grammar, but some mistakes are present. Candidate has basic ability to express opinions and explain procedures. Spelling, punctuation, and vocabulary is very good in areas of frequent usage, but mistakes are present in advanced areas that distract but do not confuse the reader."},
-{Score: 10, Definition: "Writing structure is clear and concise, but lacks style and fluidity. Candidate understands basic and advanced grammar, but a few mistakes are present. Candidate is able to express opinions and explain procedures in an informal style. Spelling, punctuation, and/or vocabulary is very good in areas of frequent and infrequent usage, but mistakes are still present."},
-{Score: 11, Definition: "Writing structure is clear and concise, but may lack style similar to that of a less-educated writer. Candidate use basic and advanced grammar correctly with
-very minor errors. Candidate is able to express opinions and explain procedures, but may not use formal and informal styles effectively. Spelling, punctuation
-and/or vocabulary mistakes are very few minor."},
-{Score: 12, Definition: "Writing structure is equivalent to that of a well-educated writer. Candidate is able to express opinions and explain procedures in a way that demonstrates an
-ability to write formal and informal styles. Grammar, spelling, punctuation, and/or vocabulary mistakes are very minor mistakes that a native speaker would
-make."},
-{Score: 13, Definition: "Writing structure is equivalent to that of a well-educated native writer. Complete range of linguistic nuance with no mistakes present."}
-]
-
-Prompts and Responses: """
+    # TODO: Use data from HF dataset
 
 
     grouped['qa'] = grouped.apply(lambda row: first_str + str(row['prompt_response']), axis=1)
