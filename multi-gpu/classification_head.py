@@ -383,7 +383,6 @@ def main():
                 # Example usage of get_accuracy:
                 true_labels = torch.argmax(eval_batch['labels'], dim=1).tolist()
                 accuracy = get_accuracy(true_labels, predicted_labels)
-                # print(f"Accuracy: {acc * 100:.2f}%")
 
                 eval_checkpoint_duration = time.time() - eval_checkpoint_start_time
                 eval_checkpoint_durations.append(eval_checkpoint_duration)
