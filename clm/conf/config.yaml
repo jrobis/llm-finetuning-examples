@@ -1,0 +1,73 @@
+access:
+  wandb_key: null
+  hf_access_token: null
+  
+output_dir: "finetuned-model_new"
+project_name: "clm-training"
+logfile: "finetuning_logs/LOGFILE"
+
+bittensor:
+  network: "nobunaga"
+
+dataset:
+  # either 'bittensor', a local path, or one from huggingface
+  name: "bittensor"
+  # name: "EleutherAI/the_pile"
+  config_name: null # necessary for huggingface datasets
+  num_batches: 10000
+  block_size: 256 # if null, defaults to bittensor's validator sequence length.
+
+  overwrite_cache: false
+  keep_linebreaks: true
+  concatenate_raw: false # only really necessary when loading a local .txt file
+  load_tokenized_data: true
+  num_workers: null
+  data_dir: "/mnt/share/ipfs-data/test-data"
+  # data_dir: "/mnt/share/ipfs-data/test-data"
+  file_name: "tokenized_data_new"
+
+model:
+  # name: EleutherAI/gpt-j-6b
+  name: decapoda-research/llama-7b-hf
+  config_name: null
+
+tokenizer:
+  name: null
+  use_fast: true
+  preprocessing_num_workers: 32
+  pad_token: "[PAD]"
+  eos_token: "<|endoftext|>"
+
+training:
+  seed: 17
+  val_split_percent: 5
+
+  # if null these both default to bittensor's validator batch size
+  train_batch_size: 8
+  eval_batch_size: 8
+
+  learning_rate: 1e-3
+  weight_decay: 0.1
+  num_epochs: 2
+  # max_train_steps: 500
+  max_train_steps: 10_000
+  max_train_steps_per_epoch: 500
+  gradient_accumulation_steps: 4
+  lr_scheduler: "linear" # ["linear", "cosine", "cosine_with_restarts", "polynomial", "constant", "constant_with_warmup"]
+  lr_warmup_steps: 10
+  eval_every: 500
+  max_eval_steps: 50
+  iterable: true
+
+  checkpoint:
+    resume_from_checkpoint: false
+    checkpoint_file: "checkpoint_metadata.json"
+    # resume_from_checkpoint: 0 # integer representing which checkpoint to load from, or <= 0 to not
+    # every_n_steps: null
+
+tracking:
+  enabled: true
+  report_to: "wandb"
+
+testing:
+  enabled: false
